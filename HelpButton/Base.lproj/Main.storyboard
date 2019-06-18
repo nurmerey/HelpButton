@@ -71,10 +71,14 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="deleteButtonReference" destination="N3j-x3-EdM" id="Zc4-j4-QeF"/>
+                        <outlet property="helpButtonReference" destination="xs5-No-j94" id="HqU-7Q-1ka"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
+            <point key="canvasLocation" x="-516" y="73"/>
         </scene>
     </scenes>
 </document>
