@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,13 +15,17 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="HelpButton" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xs5-No-j94">
-                                <rect key="frame" x="136" y="240" width="143" height="114"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xs5-No-j94">
+                                <rect key="frame" x="88.5" y="211" width="143" height="114"/>
                                 <color key="backgroundColor" red="0.40784313729999999" green="0.64705882349999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="114" id="EuL-zq-Bz2"/>
+                                    <constraint firstAttribute="width" secondItem="xs5-No-j94" secondAttribute="height" multiplier="143:114" id="Pbc-6y-K0h"/>
+                                    <constraint firstAttribute="width" constant="143" id="Zlv-G9-ABa"/>
+                                </constraints>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
@@ -42,10 +46,14 @@
                                     <action selector="helpButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Abw-rS-mVE"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N3j-x3-EdM">
-                                <rect key="frame" x="136" y="412" width="143" height="114"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N3j-x3-EdM">
+                                <rect key="frame" x="88.5" y="388" width="143" height="114"/>
                                 <color key="backgroundColor" red="1" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="114" id="ezr-oo-YFk"/>
+                                    <constraint firstAttribute="width" constant="143" id="hFY-Tf-eew"/>
+                                    <constraint firstAttribute="width" secondItem="N3j-x3-EdM" secondAttribute="height" multiplier="143:114" id="pWG-QD-A0P"/>
+                                </constraints>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
@@ -67,11 +75,24 @@
                                     <action selector="cancelButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dNa-u6-qLl"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XWy-Em-X7B">
+                                <rect key="frame" x="150" y="350" width="20" height="20"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XWy-Em-X7B" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="330" id="6kP-As-9GW"/>
+                            <constraint firstItem="N3j-x3-EdM" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="7Km-i4-3Ci"/>
+                            <constraint firstItem="xs5-No-j94" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="191" id="LLG-U6-KAT"/>
+                            <constraint firstItem="xs5-No-j94" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="a9T-vt-o0i"/>
+                            <constraint firstItem="N3j-x3-EdM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="368" id="ibf-PA-9CR"/>
+                            <constraint firstItem="XWy-Em-X7B" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="zia-PZ-3Ra"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="XWy-Em-X7B" id="ddN-XX-pbi"/>
                         <outlet property="deleteButtonReference" destination="N3j-x3-EdM" id="Zc4-j4-QeF"/>
                         <outlet property="helpButtonReference" destination="xs5-No-j94" id="HqU-7Q-1ka"/>
                     </connections>

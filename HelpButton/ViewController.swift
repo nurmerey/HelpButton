@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     let gistPath = "https://api.github.com/gists"
     var helpButtonGistId: String? = nil
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     @IBOutlet weak var helpButtonReference: UIButton!
     @IBOutlet weak var deleteButtonReference: UIButton!
@@ -24,9 +25,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func helpButton(_ sender: UIButton) {
+        activityIndicator.startAnimating();
         handleCreateGist();
     }
     @IBAction func cancelButton(_ sender: UIButton) {
+        activityIndicator.startAnimating();
         handleDeleteGist()
     }
 
@@ -44,6 +47,7 @@ class ViewController: UIViewController {
                     self.deleteButtonReference.alpha = 1;
                     self.helpButtonReference.isEnabled = false;
                     self.helpButtonReference.alpha = 0.3;
+                    self.activityIndicator.stopAnimating();
                 case let .failure(error):
                     print("ERROR", error)
                 }
@@ -74,6 +78,7 @@ class ViewController: UIViewController {
                     self.helpButtonReference.alpha = 1;
                     self.deleteButtonReference.isEnabled = false;
                     self.deleteButtonReference.alpha = 0.3;
+                    self.activityIndicator.stopAnimating();
                 case let .failure(error):
                     print("ERROR", error)
                 }
