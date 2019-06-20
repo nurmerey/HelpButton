@@ -84,18 +84,28 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
                 switch result {
                 case let .success(data):
                     let data = self.convertJSONStringToDictionary(text: data!);
-                    let gistId = data?.object(forKey:"id") as! String;
-                    self.helpButtonGistId = gistId;
-                    self.deleteButtonReference.isEnabled = true;
-                    self.deleteButtonReference.alpha = 1;
-                    self.helpButtonReference.isEnabled = false;
-                    self.helpButtonReference.alpha = 0.3;
+                    let gistId = data?.object(forKey:"id") as? String;
+                    if (gistId == nil) {
+                        self.showError();
+                    } else {
+                        self.helpButtonGistId = gistId;
+                        self.deleteButtonReference.isEnabled = true;
+                        self.deleteButtonReference.alpha = 1;
+                        self.helpButtonReference.isEnabled = false;
+                        self.helpButtonReference.alpha = 0.3;
+                    }
                     self.activityIndicator.stopAnimating();
                 case let .failure(error):
                     print("ERROR", error)
                 }
             }
         }
+    }
+
+    func showError() {
+        let alert = UIAlertController(title: "Gist Error", message: "Please check your gist username and token", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 
     func convertJSONStringToDictionary(text: String) -> NSDictionary? {
