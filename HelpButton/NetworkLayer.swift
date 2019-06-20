@@ -35,7 +35,6 @@ class NetworkLayer {
             return .failure(.url)
         }
         let loginData = String(format: "%@:%@", Config.username, Config.token).data(using: String.Encoding.utf8)!
-        print(loginData)
         let base64LoginData = loginData.base64EncodedString()
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "DELETE"
