@@ -14,12 +14,11 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
     var centralManager: CBCentralManager!
     var helpButtonGistId: String? = nil
     var networkLayer: NetworkLayer! = nil
+    var bleDevice:CBPeripheral!
+
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
-
     @IBOutlet weak var helpButtonReference: UIButton!
     @IBOutlet weak var deleteButtonReference: UIButton!
-    var bleDevice:CBPeripheral!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +32,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
     }
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-
         switch central.state {
         case .unknown:
             print("central.state is .unknown")
@@ -47,7 +45,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
             print("central.state is .poweredOff")
         case .poweredOn:
             print("central.state is .poweredOn")
-            centralManager.scanForPeripherals(withServices: nil)//[myBLEServiceCBUUID])
+            centralManager.scanForPeripherals(withServices: nil)
         @unknown default:
             print("fatal error!")
         }
@@ -55,7 +53,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
                         advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        if(peripheral.identifier.description=="375DFD02-7B00-D7BC-ACA3-9CCFC2D7D415"){ // feel free to plug in your favorite ble device UUID
+        if(peripheral.identifier.description==Config.btDevice){
             centralManager.stopScan()
             bleDevice = peripheral
             centralManager.connect(bleDevice)
@@ -78,7 +76,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
         activityIndicator.startAnimating();
         handleDeleteGist()
     }
-
 
     func handleCreateGist() {
         DispatchQueue.global(qos: .utility).async {
@@ -112,7 +109,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
         return nil
     }
 
-
     func handleDeleteGist() {
         DispatchQueue.global(qos: .utility).async {
             let result = self.networkLayer.makeDeleteAPICall(gistId:self.helpButtonGistId ?? "")
@@ -131,10 +127,5 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
             }
         }
     }
-
-    
-
-    
-
 }
 

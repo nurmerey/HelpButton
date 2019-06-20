@@ -10,20 +10,18 @@ import Foundation
 
 class NetworkLayer {
 
-    let gistPath = "https://api.github.com/gists"
-    let username = "nurmerey"
-    let token = "b97d709bdaeb1c7a01a799078ce80cb6f5d72dc1" // token just for creating gists
+
 
     enum NetworkError: Error {
         case url
         case server
     }
-    
+
     func makePostAPICall() -> Result<String?, NetworkError> {
-        guard let url = URL(string: gistPath) else {
+        guard let url = URL(string: Config.gistPath) else {
             return .failure(.url)
         }
-        let loginData = String(format: "%@:%@", username, token).data(using: String.Encoding.utf8)!
+        let loginData = String(format: "%@:%@", Config.username, Config.token).data(using: String.Encoding.utf8)!
         let base64LoginData = loginData.base64EncodedString()
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
@@ -33,10 +31,11 @@ class NetworkLayer {
     }
 
     func makeDeleteAPICall(gistId:String) -> Result<String?, NetworkError> {
-        guard let url = URL(string: "\(gistPath)/\(gistId)") else {
+        guard let url = URL(string: "\(Config.gistPath)/\(gistId)") else {
             return .failure(.url)
         }
-        let loginData = String(format: "%@:%@", username, token).data(using: String.Encoding.utf8)!
+        let loginData = String(format: "%@:%@", Config.username, Config.token).data(using: String.Encoding.utf8)!
+        print(loginData)
         let base64LoginData = loginData.base64EncodedString()
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "DELETE"
@@ -46,8 +45,8 @@ class NetworkLayer {
     }
 
     func makeGistWithDeviceInfo(deviceInfo:String) {
-        let url = URL(string: gistPath)
-        let loginData = String(format: "%@:%@", username, token).data(using: String.Encoding.utf8)!
+        let url = URL(string: Config.gistPath)
+        let loginData = String(format: "%@:%@", Config.username, Config.token).data(using: String.Encoding.utf8)!
         let base64LoginData = loginData.base64EncodedString()
         var urlRequest = URLRequest(url: url!)
         urlRequest.httpMethod = "POST"

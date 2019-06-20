@@ -16,6 +16,8 @@
 		6EC5D23422B49DFF0062ABE6 /* HelpButtonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC5D23322B49DFF0062ABE6 /* HelpButtonUITests.swift */; };
 		6EFA7F5922BB4F140080B43F /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFA7F5822BB4F140080B43F /* NetworkLayer.swift */; };
 		6EFA7F5A22BB4F140080B43F /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFA7F5822BB4F140080B43F /* NetworkLayer.swift */; };
+		6EFA7F5C22BB54A50080B43F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFA7F5B22BB54A50080B43F /* Config.swift */; };
+		6EFA7F5D22BB54A50080B43F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFA7F5B22BB54A50080B43F /* Config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,7 @@
 		6EC5D23322B49DFF0062ABE6 /* HelpButtonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpButtonUITests.swift; sourceTree = "<group>"; };
 		6EC5D23522B49DFF0062ABE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6EFA7F5822BB4F140080B43F /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
+		6EFA7F5B22BB54A50080B43F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +110,7 @@
 				6EC5D21C22B49DFF0062ABE6 /* LaunchScreen.storyboard */,
 				6EC5D21F22B49DFF0062ABE6 /* Info.plist */,
 				6EFA7F5822BB4F140080B43F /* NetworkLayer.swift */,
+				6EFA7F5B22BB54A50080B43F /* Config.swift */,
 			);
 			path = HelpButton;
 			sourceTree = "<group>";
@@ -261,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EFA7F5922BB4F140080B43F /* NetworkLayer.swift in Sources */,
+				6EFA7F5C22BB54A50080B43F /* Config.swift in Sources */,
 				6EC5D21622B49DFE0062ABE6 /* ViewController.swift in Sources */,
 				6EC5D21422B49DFE0062ABE6 /* AppDelegate.swift in Sources */,
 			);
@@ -272,6 +277,7 @@
 			files = (
 				6EFA7F5A22BB4F140080B43F /* NetworkLayer.swift in Sources */,
 				6EC5D22922B49DFF0062ABE6 /* HelpButtonTests.swift in Sources */,
+				6EFA7F5D22BB54A50080B43F /* Config.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
