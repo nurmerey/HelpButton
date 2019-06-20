@@ -9,11 +9,13 @@
 import UIKit
 import CoreBluetooth
 
+
 class ViewController: UIViewController, CBCentralManagerDelegate {
     var centralManager: CBCentralManager!
-    let gistPath = "https://api.github.com/gists"
     var helpButtonGistId: String? = nil
+    var networkLayer: NetworkLayer! = nil
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
 
     @IBOutlet weak var helpButtonReference: UIButton!
     @IBOutlet weak var deleteButtonReference: UIButton!
@@ -21,6 +23,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.networkLayer = NetworkLayer();
         centralManager = CBCentralManager(delegate: self, queue: nil)
 
         if(self.helpButtonGistId==nil){
@@ -62,13 +65,15 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected!", peripheral)
         self.activityIndicator.startAnimating();
-        makeGistWithDeviceInfo(deviceInfo: peripheral.description)
+        self.networkLayer.makeGistWithDeviceInfo(deviceInfo: peripheral.description)
+        self.activityIndicator.stopAnimating();
     }
     
     @IBAction func helpButton(_ sender: UIButton) {
         activityIndicator.startAnimating();
         handleCreateGist();
     }
+
     @IBAction func cancelButton(_ sender: UIButton) {
         activityIndicator.startAnimating();
         handleDeleteGist()
@@ -77,7 +82,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
 
     func handleCreateGist() {
         DispatchQueue.global(qos: .utility).async {
-            let result = self.makePostAPICall()
+            let result = self.networkLayer.makePostAPICall()
             DispatchQueue.main.async {
                 switch result {
                 case let .success(data):
@@ -110,7 +115,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
 
     func handleDeleteGist() {
         DispatchQueue.global(qos: .utility).async {
-            let result = self.makeDeleteAPICall()
+            let result = self.networkLayer.makeDeleteAPICall(gistId:self.helpButtonGistId ?? "")
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):
@@ -129,64 +134,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
 
     
 
-    enum NetworkError: Error {
-        case url
-        case server
-    }
-    func makePostAPICall() -> Result<String?, NetworkError> {
-        guard let url = URL(string: gistPath) else {
-            return .failure(.url)
-        }
-        let loginData = String(format: "%@:%@", username, token).data(using: String.Encoding.utf8)!
-        let base64LoginData = loginData.base64EncodedString()
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
-        urlRequest.setValue("Basic \(base64LoginData)", forHTTPHeaderField: "Authorization")
-        urlRequest.httpBody = Data("{\"description\":\"HelpButton API\",\"public\":\"true\",\"files\":{\"help.txt\":{\"content\":\"Button Press!\"}}".utf8)
-        return runDataTask(urlRequest: urlRequest)
-    }
-
-    func makeDeleteAPICall() -> Result<String?, NetworkError> {
-        guard let url = URL(string: "\(gistPath)/\(self.helpButtonGistId ?? "14934bc52407378217ff17b0cebc8e8a")") else {
-            return .failure(.url)
-        }
-        let loginData = String(format: "%@:%@", username, token).data(using: String.Encoding.utf8)!
-        let base64LoginData = loginData.base64EncodedString()
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "DELETE"
-        urlRequest.setValue("Basic \(base64LoginData)", forHTTPHeaderField: "Authorization")
-        return runDataTask(urlRequest: urlRequest)
-
-    }
-
-    func makeGistWithDeviceInfo(deviceInfo:String) {
-        let url = URL(string: gistPath)
-        let loginData = String(format: "%@:%@", username, token).data(using: String.Encoding.utf8)!
-        let base64LoginData = loginData.base64EncodedString()
-        var urlRequest = URLRequest(url: url!)
-        urlRequest.httpMethod = "POST"
-        urlRequest.setValue("Basic \(base64LoginData)", forHTTPHeaderField: "Authorization")
-        urlRequest.httpBody = Data("{\"description\":\"HelpButton API\",\"public\":\"true\",\"files\":{\"deviceInfo.txt\":{\"content\":\"\(deviceInfo))\"}}".utf8)
-        let result = runDataTask(urlRequest: urlRequest)
-        print("result", result)
-        self.activityIndicator.stopAnimating();
-    }
-
-    func runDataTask(urlRequest:URLRequest)->Result<String?, NetworkError>{
-        var result:Result<String?, NetworkError>!
-        let semaphore = DispatchSemaphore(value: 0)
-
-        URLSession.shared.dataTask(with: urlRequest){(data, _, _) in
-            if let data = data{
-                result = .success(String(data: data, encoding: .utf8))
-            }else{
-                result = .failure(.server)
-            }
-            semaphore.signal()
-            }.resume()
-        _ = semaphore.wait(wallTimeout: .distantFuture)
-        return result
-    }
+    
 
 }
 
